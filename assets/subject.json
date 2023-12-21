@@ -1,0 +1,30 @@
+[
+    {
+        "_id": "65648f8e17862eff01b3f760",
+        "name": "Endodontics",
+        "year": "1",
+        "course": "BDS",
+        "createdAt": "2023-11-27T12:46:06.939Z",
+        "updatedAt": "2023-11-27T12:55:02.363Z",
+        "__v": 0
+    },
+    {
+        "_id": "6565860d36b2989c88393f74",
+        "name": "Mechanics",
+        "year": "1",
+        "course": "B.Tech",
+        "createdAt": "2023-11-28T06:17:49.680Z",
+        "updatedAt": "2023-11-28T06:17:49.680Z",
+        "__v": 0
+    },
+    {
+        "_id": "6583b024ecc06ebcf68f0cdb",
+        "name": "Periodontics",
+        "year": "1",
+        "course": "BDS",
+        "svgPath": "xyz",
+        "createdAt": "2023-12-21T03:25:24.581Z",
+        "updatedAt": "2023-12-21T03:25:24.581Z",
+        "__v": 0
+    }
+]

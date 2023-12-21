@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surgicalutopia/app/data/providers/subject_provider.dart';
 import 'package:surgicalutopia/widgets/unfocus_gesture/unfocus_gesture.dart';
 
 import 'app/routes/app_pages.dart';
+
+String baseURL = "http://16.171.230.157:5001/api/";
+String firebaseURL =
+    "https://firebasestorage.googleapis.com/v0/b/surgicalutopia-51861.appspot.com";
+GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +29,8 @@ void main() async {
             theme: ThemeData(
                     scaffoldBackgroundColor:
                         const Color.fromRGBO(251, 246, 255, 1),
-                    textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme))
+                    textTheme: GoogleFonts.poppinsTextTheme(
+                        Theme.of(context).textTheme))
                 .copyWith(
                     colorScheme: Theme.of(context).colorScheme.copyWith(
                         primary: Color(0xFF61D7B5),
@@ -31,4 +39,6 @@ void main() async {
           ),
         );
       }));
+
+  getIt..registerSingleton(SubjectProvider());
 }
