@@ -1,0 +1,60 @@
+[
+    {
+        "_id": "658182e7cfc04b5c124f3431",
+        "subject": "65648f8e17862eff01b3f760",
+        "name": "test series 1-1",
+        "timeRequired": 10,
+        "numberOfQuestions": 15,
+        "__v": 0
+    },
+    {
+        "_id": "6581b81c02d7f0c9e850aa6d",
+        "subject": "65648f8e17862eff01b3f760",
+        "name": "Endodontics Test Series",
+        "timeRequired": 30,
+        "numberOfQuestions": 10,
+        "__v": 0
+    },
+    {
+        "_id": "6583af2b315312e4d1885d17",
+        "subject": "65648f8e17862eff01b3f760",
+        "name": "Endodontics Test Series",
+        "timeRequired": 30,
+        "numberOfQuestions": 10,
+        "__v": 0
+    },
+    {
+        "_id": "6583af3d315312e4d1885d19",
+        "subject": "65648f8e17862eff01b3f760",
+        "name": "Endodontics Test Series  3",
+        "timeRequired": 30,
+        "numberOfQuestions": 10,
+        "__v": 0
+    },
+    {
+        "_id": "6583af72cd87ff5d8d511dd0",
+        "subject": "65648f8e17862eff01b3f760",
+        "name": "Endodontics Test Series  4",
+        "timeRequired": 30,
+        "numberOfQuestions": 10,
+        "__v": 0
+    },
+    {
+        "_id": "6583afabecc06ebcf68f0cd6",
+        "subject": "65648f8e17862eff01b3f760",
+        "name": "Endodontics Test Series  5",
+        "timeRequired": 30,
+        "numberOfQuestions": 10,
+        "pngPath": "abc",
+        "__v": 0
+    },
+    {
+        "_id": "6583afbeecc06ebcf68f0cd8",
+        "subject": "65648f8e17862eff01b3f760",
+        "name": "Endodontics Test Series 6",
+        "timeRequired": 30,
+        "numberOfQuestions": 10,
+        "svgPath": "abc",
+        "__v": 0
+    }
+]

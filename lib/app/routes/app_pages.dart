@@ -9,6 +9,10 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/phone_number/bindings/phone_number_binding.dart';
 import '../modules/phone_number/views/phone_number_view.dart';
+import '../modules/section_detail/bindings/section_detail_binding.dart';
+import '../modules/section_detail/views/section_detail_view.dart';
+import '../modules/subject_detail/bindings/subject_detail_binding.dart';
+import '../modules/subject_detail/views/subject_detail_view.dart';
 
 part 'app_routes.dart';
 
@@ -39,6 +43,16 @@ class AppPages {
       name: _Paths.OTP,
       page: () => const OtpView(),
       binding: OtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUBJECT_DETAIL,
+      page: () => const SubjectDetailView(),
+      binding: SubjectDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.SECTION_DETAIL,
+      page: () => const SectionDetailView(),
+      binding: SectionDetailBinding(),
     ),
   ];
 }

@@ -19,7 +19,7 @@ class SubjectProvider extends WrapperConnect {
     return response.body;
   }
 
-  Future<Subject?> getSubject(int id) async {
+  Future<Subject?> getSubject(String id) async {
     final response = await get('subjects/$id');
     return response.body;
   }

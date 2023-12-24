@@ -7,6 +7,8 @@ abstract class Routes {
   static const EMAIL_LOGIN = _Paths.EMAIL_LOGIN;
   static const PHONE_NUMBER = _Paths.PHONE_NUMBER;
   static const OTP = _Paths.OTP;
+  static const SUBJECT_DETAIL = _Paths.SUBJECT_DETAIL;
+  static const SECTION_DETAIL = _Paths.SECTION_DETAIL;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const EMAIL_LOGIN = '/email-login';
   static const PHONE_NUMBER = '/phone-number';
   static const OTP = '/otp';
+  static const SUBJECT_DETAIL = '/subject-detail';
+  static const SECTION_DETAIL = '/section-detail';
 }

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:surgicalutopia/app/modules/subject_detail/controllers/subject_detail_controller.dart';
+import 'package:surgicalutopia/app/routes/app_pages.dart';
 import 'package:surgicalutopia/widgets/app_bar/app_bar.dart';
 import 'package:surgicalutopia/widgets/firebase_png.dart';
 import 'package:surgicalutopia/widgets/firebase_svg.dart';
@@ -116,6 +118,7 @@ class HomeView extends GetView<HomeController> {
                           ],
                         ),
                         TextFormField(
+                            keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -148,47 +151,56 @@ class HomeView extends GetView<HomeController> {
               : ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   children: controller.subjects
-                      .map((subject) => Card(
-                            margin: const EdgeInsets.only(bottom: 12),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 38,
-                                    width: 38,
-                                    decoration: BoxDecoration(
-                                        color: Get.theme.colorScheme.primary
-                                            .withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(6)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        subject.svgPath != null
-                                            ? FirebaseSvg(
-                                                subject.svgPath!,
-                                                height: 24,
-                                                width: 24,
-                                              )
-                                            : subject.pngPath != null
-                                                ? FirebasePng(
-                                                    subject.pngPath!,
-                                                    height: 24,
-                                                    width: 24,
-                                                  )
-                                                : const SizedBox(),
-                                      ],
+                      .map((subject) => InkWell(
+                            onTap: () {
+                              Get.toNamed(Routes.SUBJECT_DETAIL,
+                                  arguments: SubjectDetailArguments(
+                                      subject: subject,
+                                      subjectId: subject.sId));
+                            },
+                            child: Card(
+                              margin: const EdgeInsets.only(bottom: 12),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 38,
+                                      width: 38,
+                                      decoration: BoxDecoration(
+                                          color: Get.theme.colorScheme.primary
+                                              .withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          subject.svgPath != null
+                                              ? FirebaseSvg(
+                                                  subject.svgPath!,
+                                                  height: 24,
+                                                  width: 24,
+                                                )
+                                              : subject.pngPath != null
+                                                  ? FirebasePng(
+                                                      subject.pngPath!,
+                                                      height: 24,
+                                                      width: 24,
+                                                    )
+                                                  : const SizedBox(),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  18.horizontalSpace,
-                                  Text(subject.name ?? "",
-                                      style: Get.textTheme.titleMedium
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold))
-                                ],
+                                    18.horizontalSpace,
+                                    Text(subject.name ?? "",
+                                        style: Get.textTheme.titleMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.bold))
+                                  ],
+                                ),
                               ),
                             ),
                           ))

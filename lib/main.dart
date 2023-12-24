@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surgicalutopia/app/data/providers/section_provider.dart';
 import 'package:surgicalutopia/app/data/providers/subject_provider.dart';
 import 'package:surgicalutopia/widgets/unfocus_gesture/unfocus_gesture.dart';
 
@@ -34,11 +35,14 @@ void main() async {
                 .copyWith(
                     colorScheme: Theme.of(context).colorScheme.copyWith(
                         primary: Color(0xFF61D7B5),
+                        secondary: Color(0xFFEF4F9C),
                         tertiary: const Color(0xFFFE9738),
                         background: const Color.fromRGBO(251, 246, 255, 1))),
           ),
         );
       }));
 
-  getIt..registerSingleton(SubjectProvider());
+  getIt
+    ..registerSingleton(SubjectProvider())
+    ..registerSingleton(SectionProvider());
 }
