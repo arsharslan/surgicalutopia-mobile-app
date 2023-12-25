@@ -9,6 +9,7 @@ abstract class Routes {
   static const OTP = _Paths.OTP;
   static const SUBJECT_DETAIL = _Paths.SUBJECT_DETAIL;
   static const SECTION_DETAIL = _Paths.SECTION_DETAIL;
+  static const QUIZ = _Paths.QUIZ;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const OTP = '/otp';
   static const SUBJECT_DETAIL = '/subject-detail';
   static const SECTION_DETAIL = '/section-detail';
+  static const QUIZ = '/quiz';
 }

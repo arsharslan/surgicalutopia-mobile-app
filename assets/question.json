@@ -1,0 +1,123 @@
+[
+    {
+        "_id": "656584afb96e5859933ea6d4",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": false,
+        "__v": 0
+    },
+    {
+        "_id": "6565852cc7e20772bb34900b",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": false,
+        "__v": 0
+    },
+    {
+        "_id": "656585417fc193386fe6f23d",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": false,
+        "__v": 0
+    },
+    {
+        "_id": "656585437fc193386fe6f23f",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": false,
+        "__v": 0
+    },
+    {
+        "_id": "656585497fc193386fe6f241",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": false,
+        "__v": 0
+    },
+    {
+        "_id": "656585697fc193386fe6f243",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": true,
+        "__v": 0
+    },
+    {
+        "_id": "6565857a946f1ea744736cd5",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": true,
+        "__v": 0
+    },
+    {
+        "_id": "6565857c946f1ea744736cd7",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": true,
+        "__v": 0
+    },
+    {
+        "_id": "6565857d946f1ea744736cd9",
+        "question": "Which among this is an antibiotic?",
+        "optionA": "Acyclovir",
+        "optionB": "Fluconazole",
+        "optionC": "Naproxen",
+        "optionD": "Azithromycin",
+        "correctOption": "Azithromycin",
+        "subject": "65648f8e17862eff01b3f760",
+        "isPaid": true,
+        "__v": 0
+    },
+    {
+        "_id": "6581b3c93039327648fef71c",
+        "question": "Which is a city of UP",
+        "optionA": "Jaipur",
+        "optionB": "Bangalore",
+        "optionC": "Chennai",
+        "optionD": "Lucknow",
+        "correctOption": "D",
+        "subject": "65648f8e17862eff01b3f760",
+        "section": "65648f8e17862eff01b3f760",
+        "isPaid": true,
+        "__v": 0
+    }
+]

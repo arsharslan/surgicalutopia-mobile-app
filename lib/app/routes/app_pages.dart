@@ -9,6 +9,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/phone_number/bindings/phone_number_binding.dart';
 import '../modules/phone_number/views/phone_number_view.dart';
+import '../modules/quiz/bindings/quiz_binding.dart';
+import '../modules/quiz/views/quiz_view.dart';
 import '../modules/section_detail/bindings/section_detail_binding.dart';
 import '../modules/section_detail/views/section_detail_view.dart';
 import '../modules/subject_detail/bindings/subject_detail_binding.dart';
@@ -53,6 +55,11 @@ class AppPages {
       name: _Paths.SECTION_DETAIL,
       page: () => const SectionDetailView(),
       binding: SectionDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUIZ,
+      page: () => const QuizView(),
+      binding: QuizBinding(),
     ),
   ];
 }

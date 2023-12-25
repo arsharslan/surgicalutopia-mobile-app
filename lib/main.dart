@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:surgicalutopia/app/data/providers/question_provider.dart';
 import 'package:surgicalutopia/app/data/providers/section_provider.dart';
 import 'package:surgicalutopia/app/data/providers/subject_provider.dart';
 import 'package:surgicalutopia/widgets/unfocus_gesture/unfocus_gesture.dart';
@@ -44,5 +45,6 @@ void main() async {
 
   getIt
     ..registerSingleton(SubjectProvider())
-    ..registerSingleton(SectionProvider());
+    ..registerSingleton(SectionProvider())
+    ..registerSingleton(QuestionProvider());
 }
