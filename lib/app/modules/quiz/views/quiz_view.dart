@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
@@ -72,7 +73,33 @@ class QuizView extends GetView<QuizController> {
                                       child: const Icon(
                                           Icons.keyboard_arrow_left,
                                           color: Colors.white)),
-                                )
+                                ),
+                                Positioned(
+                                    top: 0,
+                                    bottom: 0,
+                                    right: 8,
+                                    child: PopupMenuButton(
+                                      child: const Icon(
+                                        Icons.more_vert_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      onSelected: (item) {},
+                                      itemBuilder: (BuildContext context) =>
+                                          <PopupMenuEntry>[
+                                        PopupMenuItem(
+                                          child: InkWell(
+                                              onTap: () {
+                                                Get.offAllNamed(
+                                                    Routes.QUIZ_RESULT,
+                                                    arguments:
+                                                        QuizResultArguments(
+                                                            questions: controller
+                                                                .questions));
+                                              },
+                                              child: Text("Submit")),
+                                        ),
+                                      ],
+                                    ))
                               ],
                             ),
                           ),
@@ -267,6 +294,19 @@ class QuizView extends GetView<QuizController> {
                                     "",
                                 style: Get.textTheme.titleMedium
                                     ?.copyWith(fontWeight: FontWeight.bold)),
+                            if (controller
+                                    .questions[
+                                        controller.currentQuestionIndex.value]
+                                    .imagePath !=
+                                null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: FirebasePng(controller
+                                        .questions[controller
+                                            .currentQuestionIndex.value]
+                                        .imagePath ??
+                                    ""),
+                              ),
                             const SizedBox(height: 16),
                             ...<MapEntry<String, String?>>[
                               MapEntry(
@@ -348,14 +388,45 @@ class QuizView extends GetView<QuizController> {
                             Row(
                               children: [
                                 Expanded(
+                                    child: OutlinedButton(
+                                        onPressed: () {
+                                          if (controller
+                                                  .currentQuestionIndex.value >
+                                              0) {
+                                            controller.currentQuestionIndex
+                                                .value = controller
+                                                    .currentQuestionIndex
+                                                    .value -
+                                                1;
+                                          }
+                                        },
+                                        child: const Text("Previous"))),
+                                8.horizontalSpace,
+                                Expanded(
                                   child: FilledButton(
                                       onPressed: () {
-                                        Get.offNamed(Routes.QUIZ_RESULT,
-                                            arguments: QuizResultArguments(
-                                                questions:
-                                                    controller.questions));
+                                        if ((controller.currentQuestionIndex
+                                                    .value +
+                                                1) ==
+                                            controller.questions.length) {
+                                          Get.offAllNamed(Routes.QUIZ_RESULT,
+                                              arguments: QuizResultArguments(
+                                                  questions:
+                                                      controller.questions));
+                                        } else {
+                                          controller.currentQuestionIndex
+                                              .value = controller
+                                                  .currentQuestionIndex.value +
+                                              1;
+                                        }
                                       },
-                                      child: const Text("Submit")),
+                                      child: Text((controller
+                                                      .currentQuestionIndex
+                                                      .value +
+                                                  1) ==
+                                              controller.questions.length
+                                          ? "Submit"
+                                          : "Next")),
                                 ),
                               ],
                             ),

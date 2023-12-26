@@ -27,6 +27,14 @@ class QuizResultController extends GetxController
     return correctAttempts / (args?.questions?.length ?? 1);
   }
 
+  double get attemptPercentage {
+    int correctAttempts = args?.questions
+            ?.where((question) => question.choosedOption != null)
+            .length ??
+        0;
+    return correctAttempts / (args?.questions?.length ?? 1);
+  }
+
   @override
   void onReady() {
     super.onReady();

@@ -40,7 +40,7 @@ class QuizController extends GetxController {
       timeRemaining.value = (timeRemaining.value ?? 0) - 1;
       if (timeRemaining.value == 0) {
         timer.cancel();
-        Get.offNamed(Routes.QUIZ_RESULT,
+        Get.offAllNamed(Routes.QUIZ_RESULT,
             arguments: QuizResultArguments(questions: questions));
       }
     });

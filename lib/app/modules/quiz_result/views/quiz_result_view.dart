@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:surgicalutopia/app/routes/app_pages.dart';
 
 import '../controllers/quiz_result_controller.dart';
 
@@ -57,16 +59,17 @@ class QuizResultView extends GetView<QuizResultController> {
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white)),
                                 ),
-                                Positioned(
-                                  top: 0,
-                                  bottom: 0,
-                                  left: 8,
-                                  child: InkWell(
-                                      onTap: Get.back,
-                                      child: const Icon(
-                                          Icons.keyboard_arrow_left,
-                                          color: Colors.white)),
-                                )
+                                if (Navigator.of(context).canPop())
+                                  Positioned(
+                                    top: 0,
+                                    bottom: 0,
+                                    left: 8,
+                                    child: InkWell(
+                                        onTap: Get.back,
+                                        child: const Icon(
+                                            Icons.keyboard_arrow_left,
+                                            color: Colors.white)),
+                                  )
                               ],
                             ),
                           ),
@@ -126,53 +129,116 @@ class QuizResultView extends GetView<QuizResultController> {
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(32))),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedBuilder(
-                  animation: controller.animationController,
-                  builder: (context, _) {
-                    return SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: Stack(
-                        children: [
-                          Positioned.fill(
-                            child: CircularProgressIndicator(
-                              value: (controller.correctPercentage) *
-                                  (controller.animationController.value),
-                              strokeWidth: 32,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.green),
-                              backgroundColor: Colors.green.withOpacity(0.15),
-                            ),
-                          ),
-                          Center(
-                            child: SizedBox(
-                              height: 80,
-                              width: 80,
-                              child: Card(
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(128)),
-                                child: Center(
-                                    child: Text(
-                                        "${(controller.correctPercentage * 100).toStringAsFixed(0)}%",
-                                        style: Get.textTheme.titleSmall
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold))),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                32.verticalSpace,
+                AnimatedBuilder(
+                    animation: controller.animationController,
+                    builder: (context, _) {
+                      return SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: CircularProgressIndicator(
+                                value: (controller.correctPercentage) *
+                                    (controller.animationController.value),
+                                strokeWidth: 32,
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.green),
+                                backgroundColor: Colors.green.withOpacity(0.15),
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
-              const SizedBox(height: 32),
-              Text("Correct Attempts",
-                  style: Get.textTheme.titleMedium
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-            ],
+                            Center(
+                              child: SizedBox(
+                                height: 80,
+                                width: 80,
+                                child: Card(
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(128)),
+                                  child: Center(
+                                      child: Text(
+                                          "${(controller.correctPercentage * 100).toStringAsFixed(0)}%",
+                                          style: Get.textTheme.titleSmall
+                                              ?.copyWith(
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
+                const SizedBox(height: 32),
+                Text("Correct Attempts",
+                    style: Get.textTheme.titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+                48.verticalSpace,
+                AnimatedBuilder(
+                    animation: controller.animationController,
+                    builder: (context, _) {
+                      return SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: CircularProgressIndicator(
+                                value: (controller.attemptPercentage) *
+                                    (controller.animationController.value),
+                                strokeWidth: 32,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.grey.shade400),
+                                backgroundColor: Colors.green.withOpacity(0.15),
+                              ),
+                            ),
+                            Center(
+                              child: SizedBox(
+                                height: 80,
+                                width: 80,
+                                child: Card(
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(128)),
+                                  child: Center(
+                                      child: Text(
+                                          "${(controller.attemptPercentage * 100).toStringAsFixed(0)}%",
+                                          style: Get.textTheme.titleSmall
+                                              ?.copyWith(
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
+                const SizedBox(height: 32),
+                Text("Attempts Made",
+                    style: Get.textTheme.titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+                const Spacer(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: FilledButton(
+                          onPressed: () {
+                            Get.offAllNamed(Routes.HOME);
+                          },
+                          child: Text("HOME")),
+                    ),
+                  ],
+                ),
+                16.verticalSpace
+              ],
+            ),
           ),
         ));
   }

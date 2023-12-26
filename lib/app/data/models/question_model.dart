@@ -7,6 +7,7 @@ class Question {
   String? optionD;
   String? correctOption;
   String? subject;
+  String? imagePath;
   bool? isPaid;
   int? iV;
   String? choosedOption;
@@ -20,6 +21,7 @@ class Question {
       this.optionD,
       this.correctOption,
       this.subject,
+      this.imagePath,
       this.isPaid,
       this.iV,
       this.choosedOption});
@@ -33,6 +35,7 @@ class Question {
     optionD = json['optionD'];
     correctOption = json['correctOption'];
     subject = json['subject'];
+    imagePath = json['imagePath'];
     isPaid = json['isPaid'];
     iV = json['__v'];
   }

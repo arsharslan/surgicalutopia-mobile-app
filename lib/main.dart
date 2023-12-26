@@ -29,6 +29,7 @@ void main() async {
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
             theme: ThemeData(
+                    useMaterial3: true,
                     scaffoldBackgroundColor:
                         const Color.fromRGBO(251, 246, 255, 1),
                     textTheme: GoogleFonts.poppinsTextTheme(

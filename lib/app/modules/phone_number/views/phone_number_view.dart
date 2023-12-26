@@ -47,6 +47,7 @@ class PhoneNumberView extends GetView<PhoneNumberController> {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: controller.phoneController,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                       filled: true,
                       hintText: "Mobile Number",
