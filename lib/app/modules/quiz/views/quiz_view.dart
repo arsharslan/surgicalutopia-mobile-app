@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:surgicalutopia/app/modules/quiz_result/controllers/quiz_result_controller.dart';
+import 'package:surgicalutopia/app/routes/app_pages.dart';
+import 'package:surgicalutopia/widgets/firebase_png.dart';
 
 import '../controllers/quiz_controller.dart';
+import 'package:collection/collection.dart';
 
 class QuizView extends GetView<QuizController> {
   const QuizView({Key? key}) : super(key: key);
@@ -128,16 +133,236 @@ class QuizView extends GetView<QuizController> {
         ),
         body: Obx(() {
           return controller.isLoading.value
-              ? CircularProgressIndicator()
-              : ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                            "Question ${controller.currentQuestionIndex.value + 1}/${controller.questions?.length}",
-                            style: Get.textTheme.titleSmall),
-                      ],
+              ? const Center(child: CircularProgressIndicator())
+              : CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                    "Question ${controller.currentQuestionIndex.value + 1}/${controller.questions?.length}",
+                                    style: Get.textTheme.titleSmall),
+                                const SizedBox(height: 16),
+                                const Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(64),
+                                      color: (controller.timeRemaining.value ??
+                                                  0) <=
+                                              10
+                                          ? Colors.red.withOpacity(0.2)
+                                          : Get.theme.colorScheme.primary
+                                              .withOpacity(0.2)),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset("assets/icons/time.svg",
+                                          color: (controller.timeRemaining
+                                                          .value ??
+                                                      0) <=
+                                                  10
+                                              ? Colors.red
+                                              : Get.theme.colorScheme.primary),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                          controller
+                                              .getFormattedTimeRemaining(),
+                                          style: Get.textTheme.bodyMedium
+                                              ?.copyWith(
+                                                  color: (controller
+                                                                  .timeRemaining
+                                                                  .value ??
+                                                              0) <=
+                                                          10
+                                                      ? Colors.red
+                                                      : Get.theme.colorScheme
+                                                          .primary))
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            SizedBox(
+                              height: 64,
+                              child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  children: controller.questions
+                                      .mapIndexed((index, question) => Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 8),
+                                            child: InkWell(
+                                              onTap: () {
+                                                controller.currentQuestionIndex
+                                                    .value = index;
+                                              },
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    height: 36,
+                                                    width: 36,
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: index ==
+                                                                controller
+                                                                    .currentQuestionIndex
+                                                                    .value
+                                                            ? Get
+                                                                .theme
+                                                                .colorScheme
+                                                                .secondary
+                                                            : question.choosedOption !=
+                                                                    null
+                                                                ? Get
+                                                                    .theme
+                                                                    .colorScheme
+                                                                    .tertiary
+                                                                : Colors.grey
+                                                                    .shade400),
+                                                    child: Text("${index + 1}",
+                                                        style: Get.textTheme
+                                                            .titleMedium
+                                                            ?.copyWith(
+                                                                color: Colors
+                                                                    .white)),
+                                                  ),
+                                                  Divider(
+                                                      color: index ==
+                                                              controller
+                                                                  .currentQuestionIndex
+                                                                  .value
+                                                          ? Get
+                                                              .theme
+                                                              .colorScheme
+                                                              .secondary
+                                                          : question.choosedOption !=
+                                                                  null
+                                                              ? Get
+                                                                  .theme
+                                                                  .colorScheme
+                                                                  .tertiary
+                                                              : Colors.grey
+                                                                  .shade400)
+                                                ],
+                                              ),
+                                            ),
+                                          ))
+                                      .toList()),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                                controller
+                                        .questions[controller
+                                            .currentQuestionIndex.value]
+                                        .question ??
+                                    "",
+                                style: Get.textTheme.titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 16),
+                            ...<MapEntry<String, String?>>[
+                              MapEntry(
+                                  "A",
+                                  controller
+                                      .questions[
+                                          controller.currentQuestionIndex.value]
+                                      .optionA),
+                              MapEntry(
+                                  "B",
+                                  controller
+                                      .questions[
+                                          controller.currentQuestionIndex.value]
+                                      .optionB),
+                              MapEntry(
+                                  "C",
+                                  controller
+                                      .questions[
+                                          controller.currentQuestionIndex.value]
+                                      .optionC),
+                              MapEntry(
+                                  "D",
+                                  controller
+                                      .questions[
+                                          controller.currentQuestionIndex.value]
+                                      .optionD),
+                            ].map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: InkWell(
+                                  onTap: () {
+                                    controller
+                                        .questions[controller
+                                            .currentQuestionIndex.value]
+                                        .choosedOption = e.key;
+                                    controller.questions.refresh();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: controller
+                                                        .questions[controller
+                                                            .currentQuestionIndex
+                                                            .value]
+                                                        .choosedOption ==
+                                                    e.key
+                                                ? Get
+                                                    .theme.colorScheme.secondary
+                                                : Colors.grey.shade400,
+                                            shape: BoxShape.circle),
+                                        child: Text(e.key,
+                                            style: Get.textTheme.titleSmall
+                                                ?.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white)),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Text(e.value ?? "",
+                                          style: Get.textTheme.bodyMedium?.copyWith(
+                                              color: controller
+                                                          .questions[controller
+                                                              .currentQuestionIndex
+                                                              .value]
+                                                          .choosedOption ==
+                                                      e.key
+                                                  ? Get.theme.colorScheme
+                                                      .secondary
+                                                  : Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: FilledButton(
+                                      onPressed: () {
+                                        Get.offNamed(Routes.QUIZ_RESULT,
+                                            arguments: QuizResultArguments(
+                                                questions:
+                                                    controller.questions));
+                                      },
+                                      child: const Text("Submit")),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16)
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 );

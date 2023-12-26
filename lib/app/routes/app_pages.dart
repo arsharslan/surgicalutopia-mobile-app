@@ -11,6 +11,8 @@ import '../modules/phone_number/bindings/phone_number_binding.dart';
 import '../modules/phone_number/views/phone_number_view.dart';
 import '../modules/quiz/bindings/quiz_binding.dart';
 import '../modules/quiz/views/quiz_view.dart';
+import '../modules/quiz_result/bindings/quiz_result_binding.dart';
+import '../modules/quiz_result/views/quiz_result_view.dart';
 import '../modules/section_detail/bindings/section_detail_binding.dart';
 import '../modules/section_detail/views/section_detail_view.dart';
 import '../modules/subject_detail/bindings/subject_detail_binding.dart';
@@ -60,6 +62,11 @@ class AppPages {
       name: _Paths.QUIZ,
       page: () => const QuizView(),
       binding: QuizBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUIZ_RESULT,
+      page: () => const QuizResultView(),
+      binding: QuizResultBinding(),
     ),
   ];
 }

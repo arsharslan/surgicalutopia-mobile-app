@@ -9,6 +9,7 @@ class Question {
   String? subject;
   bool? isPaid;
   int? iV;
+  String? choosedOption;
 
   Question(
       {this.sId,
@@ -20,7 +21,8 @@ class Question {
       this.correctOption,
       this.subject,
       this.isPaid,
-      this.iV});
+      this.iV,
+      this.choosedOption});
 
   Question.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
