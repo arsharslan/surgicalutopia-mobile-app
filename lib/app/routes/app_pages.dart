@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:surgicalutopia/utils/shared_preferences.dart';
 
 import '../modules/email_login/bindings/email_login_binding.dart';
 import '../modules/email_login/views/email_login_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/onboarding/bindings/onboarding_binding.dart';
+import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/phone_number/bindings/phone_number_binding.dart';
@@ -25,7 +28,9 @@ class AppPages {
 
   static String get INITIAL => FirebaseAuth.instance.currentUser == null
       ? Routes.PHONE_NUMBER
-      : Routes.HOME;
+      : PreferencesHelper.instance.mongoUserID == null || PreferencesHelper.instance.mongoUserID?.isEmpty == true
+          ? Routes.ONBOARDING
+          : Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -67,6 +72,11 @@ class AppPages {
       name: _Paths.QUIZ_RESULT,
       page: () => const QuizResultView(),
       binding: QuizResultBinding(),
+    ),
+    GetPage(
+      name: _Paths.ONBOARDING,
+      page: () => const OnboardingView(),
+      binding: OnboardingBinding(),
     ),
   ];
 }

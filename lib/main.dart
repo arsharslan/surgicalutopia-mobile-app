@@ -8,11 +8,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:surgicalutopia/app/data/providers/question_provider.dart';
 import 'package:surgicalutopia/app/data/providers/section_provider.dart';
 import 'package:surgicalutopia/app/data/providers/subject_provider.dart';
+import 'package:surgicalutopia/app/data/providers/user_provider.dart';
+import 'package:surgicalutopia/utils/shared_preferences.dart';
 import 'package:surgicalutopia/widgets/unfocus_gesture/unfocus_gesture.dart';
 
 import 'app/routes/app_pages.dart';
 
-String baseURL = "http://16.171.230.157:5001/api/";
+String baseURL = 
+// "http://10.0.2.2:5001/api/" ?? 
+"http://16.171.230.157:5001/api/";
 String firebaseURL =
     "https://firebasestorage.googleapis.com/v0/b/surgicalutopia-51861.appspot.com";
 GetIt getIt = GetIt.instance;
@@ -20,6 +24,7 @@ GetIt getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await PreferencesHelper.instance.init();
   runApp(ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, _) {
@@ -47,5 +52,6 @@ void main() async {
   getIt
     ..registerSingleton(SubjectProvider())
     ..registerSingleton(SectionProvider())
+    ..registerSingleton(UserProvider())
     ..registerSingleton(QuestionProvider());
 }

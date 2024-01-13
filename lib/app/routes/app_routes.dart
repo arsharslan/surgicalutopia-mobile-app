@@ -11,6 +11,7 @@ abstract class Routes {
   static const SECTION_DETAIL = _Paths.SECTION_DETAIL;
   static const QUIZ = _Paths.QUIZ;
   static const QUIZ_RESULT = _Paths.QUIZ_RESULT;
+  static const ONBOARDING = _Paths.ONBOARDING;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const SECTION_DETAIL = '/section-detail';
   static const QUIZ = '/quiz';
   static const QUIZ_RESULT = '/quiz-result';
+  static const ONBOARDING = '/onboarding';
 }

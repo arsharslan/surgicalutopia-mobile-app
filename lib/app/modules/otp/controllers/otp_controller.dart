@@ -2,7 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:surgicalutopia/app/data/models/user_model.dart';
+import 'package:surgicalutopia/app/data/providers/user_provider.dart';
 import 'package:surgicalutopia/app/routes/app_pages.dart';
+import 'package:surgicalutopia/main.dart';
+import 'package:surgicalutopia/utils/shared_preferences.dart';
 import 'package:surgicalutopia/utils/toast/toast_extension.dart';
 
 class OtpController extends GetxController {
@@ -40,7 +44,16 @@ class OtpController extends GetxController {
           verificationId: args?.verificationId ?? "", smsCode: otp.text);
       UserCredential userCred =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      Get.offAllNamed(Routes.HOME);
+      Response<CustomUser?> response = await getIt<UserProvider>().findUser();
+      if (response.statusCode == 404) {
+        Get.offAllNamed(Routes.ONBOARDING);
+        return;
+        
+      } else if (response.statusCode == 200) {
+        Get.offAllNamed(Routes.HOME);
+        await PreferencesHelper.instance
+            .setMongoUserId(response.body?.id ?? "");
+      }
     } catch (e) {
       fToast.safeShowToast(child: errorToast("Authentication Failed"));
     } finally {
