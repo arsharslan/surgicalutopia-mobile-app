@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,15 +16,16 @@ import 'package:surgicalutopia/widgets/unfocus_gesture/unfocus_gesture.dart';
 
 import 'app/routes/app_pages.dart';
 
-String baseURL = 
-// "http://10.0.2.2:5001/api/" ?? 
-"http://16.171.230.157:5001/api/";
+String baseURL =
+// "http://10.0.2.2:5001/api/" ??
+    "https://16.171.230.157:5001/api/";
 String firebaseURL =
     "https://firebasestorage.googleapis.com/v0/b/surgicalutopia-51861.appspot.com";
 GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp();
   await PreferencesHelper.instance.init();
   runApp(ScreenUtilInit(
@@ -54,4 +57,15 @@ void main() async {
     ..registerSingleton(SectionProvider())
     ..registerSingleton(UserProvider())
     ..registerSingleton(QuestionProvider());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+
+  bool _certificateCheck(X509Certificate cert, String host, int port) => true;
 }
