@@ -226,14 +226,15 @@ class QuizView extends GetView<QuizController> {
                                       .mapIndexed((index, question) => Padding(
                                             padding:
                                                 const EdgeInsets.only(right: 8),
-                                            child: InkWell(
-                                              onTap: () {
-                                                controller.currentQuestionIndex
-                                                    .value = index;
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Container(
+                                            child: Column(
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    controller
+                                                        .currentQuestionIndex
+                                                        .value = index;
+                                                  },
+                                                  child: Container(
                                                     height: 36,
                                                     width: 36,
                                                     alignment: Alignment.center,
@@ -249,10 +250,22 @@ class QuizView extends GetView<QuizController> {
                                                                 .secondary
                                                             : question.choosedOption !=
                                                                     null
-                                                                ? Get
-                                                                    .theme
-                                                                    .colorScheme
-                                                                    .tertiary
+                                                                ? controller
+                                                                            .args
+                                                                            ?.section
+                                                                            ?.showResultsEarly ==
+                                                                        true
+                                                                    ? question.correctOption ==
+                                                                            question
+                                                                                .choosedOption
+                                                                        ? Colors
+                                                                            .green
+                                                                        : Colors
+                                                                            .red
+                                                                    : Get
+                                                                        .theme
+                                                                        .colorScheme
+                                                                        .tertiary
                                                                 : Colors.grey
                                                                     .shade400),
                                                     child: Text("${index + 1}",
@@ -262,38 +275,54 @@ class QuizView extends GetView<QuizController> {
                                                                 color: Colors
                                                                     .white)),
                                                   ),
-                                                  Divider(
-                                                      color: index ==
-                                                              controller
-                                                                  .currentQuestionIndex
-                                                                  .value
-                                                          ? Get
-                                                              .theme
-                                                              .colorScheme
-                                                              .secondary
-                                                          : question.choosedOption !=
-                                                                  null
-                                                              ? Get
-                                                                  .theme
-                                                                  .colorScheme
-                                                                  .tertiary
-                                                              : Colors.grey
-                                                                  .shade400)
-                                                ],
-                                              ),
+                                                ),
+                                                Divider(
+                                                    color: index ==
+                                                            controller
+                                                                .currentQuestionIndex
+                                                                .value
+                                                        ? Get.theme.colorScheme
+                                                            .secondary
+                                                        : question.choosedOption !=
+                                                                null
+                                                            ? Get
+                                                                .theme
+                                                                .colorScheme
+                                                                .tertiary
+                                                            : Colors
+                                                                .grey.shade400)
+                                              ],
                                             ),
                                           ))
                                       .toList()),
                             ),
                             const SizedBox(height: 8),
-                            Text(
-                                controller
-                                        .questions[controller
-                                            .currentQuestionIndex.value]
-                                        .question ??
-                                    "",
-                                style: Get.textTheme.titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                      controller
+                                              .questions[controller
+                                                  .currentQuestionIndex.value]
+                                              .question ??
+                                          "",
+                                      style: Get.textTheme.titleMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold)),
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                    controller
+                                            .questions[controller
+                                                .currentQuestionIndex.value]
+                                            .reference ??
+                                        "",
+                                    style: Get.textTheme.bodySmall
+                                        ?.copyWith(color: Colors.grey))
+                              ],
+                            ),
                             if (controller
                                     .questions[
                                         controller.currentQuestionIndex.value]
@@ -337,13 +366,19 @@ class QuizView extends GetView<QuizController> {
                               (e) => Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: InkWell(
-                                  onTap: () {
-                                    controller
-                                        .questions[controller
-                                            .currentQuestionIndex.value]
-                                        .choosedOption = e.key;
-                                    controller.questions.refresh();
-                                  },
+                                  onTap: controller
+                                              .questions[controller
+                                                  .currentQuestionIndex.value]
+                                              .choosedOption !=
+                                          null
+                                      ? null
+                                      : () {
+                                          controller
+                                              .questions[controller
+                                                  .currentQuestionIndex.value]
+                                              .choosedOption = e.key;
+                                          controller.questions.refresh();
+                                        },
                                   child: Row(
                                     children: [
                                       Container(
@@ -357,8 +392,25 @@ class QuizView extends GetView<QuizController> {
                                                             .value]
                                                         .choosedOption ==
                                                     e.key
-                                                ? Get
-                                                    .theme.colorScheme.secondary
+                                                ? controller.args?.section
+                                                            ?.showResultsEarly ==
+                                                        true
+                                                    ? controller
+                                                                .questions[
+                                                                    controller
+                                                                        .currentQuestionIndex
+                                                                        .value]
+                                                                .choosedOption ==
+                                                            controller
+                                                                .questions[
+                                                                    controller
+                                                                        .currentQuestionIndex
+                                                                        .value]
+                                                                .correctOption
+                                                        ? Colors.green
+                                                        : Colors.red
+                                                    : Get.theme.colorScheme
+                                                        .secondary
                                                 : Colors.grey.shade400,
                                             shape: BoxShape.circle),
                                         child: Text(e.key,
@@ -384,6 +436,27 @@ class QuizView extends GetView<QuizController> {
                                 ),
                               ),
                             ),
+                            if (controller.args?.section?.showResultsEarly ==
+                                    true &&
+                                controller
+                                        .questions[controller
+                                            .currentQuestionIndex.value]
+                                        .choosedOption !=
+                                    null &&
+                                controller
+                                        .questions[controller
+                                            .currentQuestionIndex.value]
+                                        .explanation !=
+                                    null) ...[
+                              Text("Explanation :",
+                                  style: Get.textTheme.titleMedium
+                                      ?.copyWith(fontWeight: FontWeight.bold)),
+                              Text(controller
+                                      .questions[
+                                          controller.currentQuestionIndex.value]
+                                      .explanation ??
+                                  "")
+                            ],
                             const Spacer(),
                             Row(
                               children: [

@@ -31,7 +31,7 @@ class QuizController extends GetxController {
   Future<void> instantiate() async {
     isLoading.value = true;
     questions.value = (await getIt<QuestionProvider>().getQuestion(
-            // sectionId: args?.sectionId,
+            sectionId: args?.sectionId,
             subjectId: args?.subjectId)) ??
         [];
     isLoading.value = false;

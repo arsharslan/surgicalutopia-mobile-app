@@ -11,6 +11,8 @@ class Question {
   bool? isPaid;
   int? iV;
   String? choosedOption;
+  String? reference;
+  String? explanation;
 
   Question(
       {this.sId,
@@ -24,7 +26,9 @@ class Question {
       this.imagePath,
       this.isPaid,
       this.iV,
-      this.choosedOption});
+      this.choosedOption,
+      this.reference,
+      this.explanation});
 
   Question.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -37,6 +41,8 @@ class Question {
     subject = json['subject'];
     imagePath = json['imagePath'];
     isPaid = json['isPaid'];
+    reference = json['reference'];
+    explanation = json['explanation'];
     iV = json['__v'];
   }
 

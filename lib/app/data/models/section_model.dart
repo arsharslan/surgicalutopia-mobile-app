@@ -7,6 +7,7 @@ class Section {
   int? iV;
   String? svgPath;
   String? pngPath;
+  bool? showResultsEarly;
 
   Section(
       {this.sId,
@@ -16,7 +17,8 @@ class Section {
       this.numberOfQuestions,
       this.iV,
       this.svgPath,
-      this.pngPath});
+      this.pngPath,
+      this.showResultsEarly});
 
   Section.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -26,6 +28,7 @@ class Section {
     numberOfQuestions = json['numberOfQuestions'];
     svgPath = json['svgPath'];
     pngPath = json['pngPath'];
+    showResultsEarly = true ?? json['showResultsEarly'];
     iV = json['__v'];
   }
 
