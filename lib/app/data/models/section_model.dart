@@ -28,7 +28,7 @@ class Section {
     numberOfQuestions = json['numberOfQuestions'];
     svgPath = json['svgPath'];
     pngPath = json['pngPath'];
-    showResultsEarly = true ?? json['showResultsEarly'];
+    showResultsEarly = json['showResultsEarly'];
     iV = json['__v'];
   }
 
