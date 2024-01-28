@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:surgicalutopia/app/routes/app_pages.dart';
@@ -9,6 +10,10 @@ import 'package:surgicalutopia/main.dart';
 import 'package:surgicalutopia/utils/extensions/extensions.dart';
 
 class WrapperConnect extends GetConnect {
+  WrapperConnect() {
+    allowAutoSignedCert = true;
+  }
+
   signOut() async {
     await FirebaseAuth.instance.signOut();
     Get.offAllNamed(Routes.EMAIL_LOGIN);
@@ -28,7 +33,7 @@ class WrapperConnect extends GetConnect {
       query: query,
       decoder: decoder,
     );
-    if (response.statusCode == 401) {
+    if ([401, 403].contains(response.statusCode)) {
       response = await super.get<T>(
         url,
         headers: headers ?? {"Authorization": "Bearer ${await freshToken}"},
@@ -37,7 +42,7 @@ class WrapperConnect extends GetConnect {
         decoder: decoder,
       );
 
-      if (response.statusCode == 401) {
+      if ([401, 403].contains(response.statusCode)) {
         signOut();
       }
     }
@@ -77,7 +82,7 @@ class WrapperConnect extends GetConnect {
       decoder: decoder,
       uploadProgress: uploadProgress, */
     );
-    if (response.statusCode == 401) {
+    if ([401, 403].contains(response.statusCode)) {
       response = await _postCore(
         url: url ?? "",
         body: body,
@@ -87,14 +92,13 @@ class WrapperConnect extends GetConnect {
       decoder: decoder,
       uploadProgress: uploadProgress, */
       );
-      if (response.statusCode == 401) {
+      if ([401, 403].contains(response.statusCode)) {
         signOut();
       }
     }
     if (response.statusCode < 300) {
       final body = await response.stream.bytesToString();
-      return Success<T?>(
-          decoder?.call(jsonDecode(body)));
+      return Success<T?>(decoder?.call(jsonDecode(body)));
     } else {
       return Error<T?>(body);
     }
@@ -116,7 +120,7 @@ class WrapperConnect extends GetConnect {
               "Content-Type": "multipart/form-data",
               "Authorization": "Bearer ${await token}"
             });
-    if (response.statusCode == 401) {
+    if ([401, 403].contains(response.statusCode)) {
       response = await http.patch(Uri.parse("$baseURL/$url"),
           body: jsonEncode(body),
           headers: headers ??
@@ -125,7 +129,7 @@ class WrapperConnect extends GetConnect {
                 "Authorization": "Bearer ${await freshToken}"
               });
 
-      if (response.statusCode == 401) {
+      if ([401, 403].contains(response.statusCode)) {
         signOut();
       }
     }
@@ -148,7 +152,7 @@ class WrapperConnect extends GetConnect {
       decoder: decoder,
     );
 
-    if (response.statusCode == 401) {
+    if ([401, 403].contains(response.statusCode)) {
       response = await super.delete(
         url,
         headers: headers ?? {"Authorization": "Bearer ${await freshToken}"},
@@ -156,7 +160,7 @@ class WrapperConnect extends GetConnect {
         query: query,
         decoder: decoder,
       );
-      if (response.statusCode == 401) {
+      if ([401, 403].contains(response.statusCode)) {
         signOut();
       }
     }
