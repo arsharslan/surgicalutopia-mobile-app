@@ -18,7 +18,8 @@ class QuestionProvider extends WrapperConnect {
       {String? subjectId, String? sectionId}) async {
     final response = await get('questions', query: {
       if (subjectId != null) "subject": subjectId,
-      if (sectionId != null) "section": sectionId
+      if (sectionId != null) "section": sectionId,
+      "getAll": "true"
     });
     return response.body;
   }
