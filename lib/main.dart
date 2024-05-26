@@ -25,7 +25,7 @@ GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // HttpOverrides.global = MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp();
   await PreferencesHelper.instance.init();
   runApp(ScreenUtilInit(

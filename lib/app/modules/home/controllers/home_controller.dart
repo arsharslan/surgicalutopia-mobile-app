@@ -5,7 +5,8 @@ import 'package:surgicalutopia/main.dart';
 
 class HomeController extends GetxController {
   RxBool isLoading = false.obs;
-  RxList<Subject> subjects = RxList.empty();
+  RxList<Subject> filteredSubjects = RxList.empty();
+  List<Subject> allSubjects = [];
 
   @override
   void onInit() {
@@ -16,8 +17,9 @@ class HomeController extends GetxController {
   getSubjects() async {
     print("getting subjects");
     isLoading.value = true;
-    subjects.value = (await getIt<SubjectProvider>().getSubjects()) ?? [];
-    print(subjects);
+    allSubjects = (await getIt<SubjectProvider>().getSubjects()) ?? [];
+    // filteredSubjects.value = [...allSubjects];
+    print(filteredSubjects);
     isLoading.value = false;
   }
 

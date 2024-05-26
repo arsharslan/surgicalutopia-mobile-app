@@ -118,7 +118,21 @@ class HomeView extends GetView<HomeController> {
                           ],
                         ),
                         TextFormField(
-                            keyboardType: TextInputType.phone,
+                            // keyboardType: TextInputType.phone,
+                            onChanged: (value) {
+                              if (value.isEmpty) {
+                                controller.filteredSubjects.value = [];
+                              } else {
+                                controller.filteredSubjects.value = controller
+                                    .allSubjects
+                                    .where((p0) =>
+                                        p0.name
+                                            ?.toUpperCase()
+                                            .contains(value.toUpperCase()) ==
+                                        true)
+                                    .toList();
+                              }
+                            },
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -131,13 +145,29 @@ class HomeView extends GetView<HomeController> {
                                       color: Get.theme.colorScheme.primary),
                                 ),
                                 contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide.none,
                                     borderRadius: BorderRadius.circular(64))))
                       ],
                     ),
-                  ))
+                  )),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 32, right: 32, bottom: 2),
+                  child: Obx(() {
+                    return Text(
+                        controller.filteredSubjects.isEmpty
+                            ? "All Subjects"
+                            : "Filtered Subjects",
+                        style: Get.textTheme.titleLarge);
+                  }),
+                ),
+              )
             ],
           ),
           toolbarHeight: 256,
@@ -147,11 +177,67 @@ class HomeView extends GetView<HomeController> {
         ),
         body: Obx(() {
           return controller.isLoading.value
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
-                  children: controller.subjects
-                      .map((subject) => InkWell(
+                  children: [
+                      if (controller.filteredSubjects.isNotEmpty) ...[
+                        ...controller.filteredSubjects.map((subject) => InkWell(
+                              onTap: () {
+                                Get.toNamed(Routes.SUBJECT_DETAIL,
+                                    arguments: SubjectDetailArguments(
+                                        subject: subject,
+                                        subjectId: subject.sId));
+                              },
+                              child: Card(
+                                margin: const EdgeInsets.only(bottom: 12),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 38,
+                                        width: 38,
+                                        decoration: BoxDecoration(
+                                            color: Get.theme.colorScheme.primary
+                                                .withOpacity(0.2),
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            subject.svgPath != null
+                                                ? FirebaseSvg(
+                                                    subject.svgPath!,
+                                                    height: 24,
+                                                    width: 24,
+                                                  )
+                                                : subject.pngPath != null
+                                                    ? FirebasePng(
+                                                        subject.pngPath!,
+                                                        height: 24,
+                                                        width: 24,
+                                                      )
+                                                    : const SizedBox(),
+                                          ],
+                                        ),
+                                      ),
+                                      18.horizontalSpace,
+                                      Text(subject.name ?? "",
+                                          style: Get.textTheme.titleMedium
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.bold))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )),
+                        Divider(color: Colors.grey.shade400),
+                      ],
+                      ...controller.allSubjects.map((subject) => InkWell(
                             onTap: () {
                               Get.toNamed(Routes.SUBJECT_DETAIL,
                                   arguments: SubjectDetailArguments(
@@ -204,7 +290,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                           ))
-                      .toList());
+                    ]);
         }));
   }
 }
