@@ -1,4 +1,4 @@
-package com.example.surgicalutopia
+package com.surgicalutopia.app
 
 import io.flutter.embedding.android.FlutterActivity
 

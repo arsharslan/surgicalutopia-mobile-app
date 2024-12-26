@@ -48,7 +48,6 @@ class OtpController extends GetxController {
       if (response.statusCode == 404) {
         Get.offAllNamed(Routes.ONBOARDING);
         return;
-        
       } else if (response.statusCode == 200) {
         Get.offAllNamed(Routes.HOME);
         await PreferencesHelper.instance

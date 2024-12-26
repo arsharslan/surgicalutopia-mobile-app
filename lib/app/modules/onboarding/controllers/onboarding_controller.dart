@@ -24,10 +24,24 @@ class OnboardingController extends GetxController {
 
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
+  Rxn<CustomUser> user = Rxn();
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
+    getUser();
     super.onInit();
+  }
+
+  Future<void> getUser() async {
+    if (PreferencesHelper.instance.mongoUserID == null) {
+      return;
+    }
+    isLoading.value = true;
+    final user = await getIt<UserProvider>().getUser();
+    this.user.value = user;
+    print("$firebaseURL${this.user.value?.profilePic}?alt=media");
+    isLoading.value = false;
   }
 
   @override
@@ -36,6 +50,10 @@ class OnboardingController extends GetxController {
     if (parentKey.currentContext != null) {
       fToast.init(parentKey.currentContext!);
     }
+    user.listen((user) {
+      firstName.text = user?.firstName ?? "";
+      lastName.text = user?.lastName ?? "";
+    });
   }
 
   @override

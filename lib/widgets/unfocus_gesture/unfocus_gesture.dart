@@ -46,7 +46,7 @@ class _UnFocusGestureState extends State<UnFocusGesture> {
                     OutlinedButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
-                          Get.offAllNamed(Routes.PHONE_NUMBER);
+                          Get.offAllNamed(Routes.EMAIL_LOGIN);
                         },
                         child: Text("Yes")),
                     8.horizontalSpace,

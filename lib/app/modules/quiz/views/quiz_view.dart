@@ -87,16 +87,13 @@ class QuizView extends GetView<QuizController> {
                                       itemBuilder: (BuildContext context) =>
                                           <PopupMenuEntry>[
                                         PopupMenuItem(
-                                          child: InkWell(
-                                              onTap: () {
-                                                Get.offAllNamed(
-                                                    Routes.QUIZ_RESULT,
-                                                    arguments:
-                                                        QuizResultArguments(
-                                                            questions: controller
-                                                                .questions));
-                                              },
-                                              child: Text("Submit")),
+                                          onTap: controller.submit,
+                                          child: Obx(() {
+                                            return controller
+                                                    .isSubmitting.value
+                                                ? CircularProgressIndicator()
+                                                : Text("Submit");
+                                          }),
                                         ),
                                       ],
                                     ))

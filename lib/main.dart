@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:surgicalutopia/app/data/providers/question_provider.dart';
+import 'package:surgicalutopia/app/data/providers/quiz_result_provider.dart';
 import 'package:surgicalutopia/app/data/providers/section_provider.dart';
 import 'package:surgicalutopia/app/data/providers/subject_provider.dart';
 import 'package:surgicalutopia/app/data/providers/user_provider.dart';
@@ -18,9 +19,11 @@ import 'app/routes/app_pages.dart';
 
 String baseURL =
 // "http://10.0.2.2:5001/api/" ??
-    "https://16.171.230.157:5001/api/";
+    // "https://16.171.230.157:5001/api/";
+    // "http://52.66.241.156:5001/api/";
+    "https://15.207.21.79:5001/api/";
 String firebaseURL =
-    "https://firebasestorage.googleapis.com/v0/b/surgicalutopia-51861.appspot.com";
+    "https://firebasestorage.googleapis.com/v0/b/surgicalutopia-51861.appspot.com/o/";
 GetIt getIt = GetIt.instance;
 
 void main() async {
@@ -56,7 +59,8 @@ void main() async {
     ..registerSingleton(SubjectProvider())
     ..registerSingleton(SectionProvider())
     ..registerSingleton(UserProvider())
-    ..registerSingleton(QuestionProvider());
+    ..registerSingleton(QuestionProvider())
+    ..registerSingleton(QuizResultProvider());
 }
 
 class MyHttpOverrides extends HttpOverrides {

@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:surgicalutopia/app/data/models/question_model.dart';
+import 'package:surgicalutopia/app/data/models/quiz_result_model.dart';
 import 'package:surgicalutopia/app/data/models/section_model.dart';
 import 'package:surgicalutopia/app/data/models/subject_model.dart';
 import 'package:surgicalutopia/app/data/providers/question_provider.dart';
+import 'package:surgicalutopia/app/data/providers/quiz_result_provider.dart';
 import 'package:surgicalutopia/app/modules/quiz_result/controllers/quiz_result_controller.dart';
 import 'package:surgicalutopia/app/routes/app_pages.dart';
 import 'package:surgicalutopia/main.dart';
+import 'package:surgicalutopia/utils/shared_preferences.dart';
+import 'package:surgicalutopia/utils/wrapper_connect.dart';
 
 class QuizController extends GetxController {
   QuizArguments? args;
@@ -18,6 +22,7 @@ class QuizController extends GetxController {
 
   late Timer timer;
   RxnInt timeRemaining = RxnInt();
+  RxBool isSubmitting = false.obs;
 
   @override
   void onInit() {
@@ -31,8 +36,7 @@ class QuizController extends GetxController {
   Future<void> instantiate() async {
     isLoading.value = true;
     questions.value = (await getIt<QuestionProvider>().getQuestion(
-            sectionId: args?.sectionId,
-            subjectId: args?.subjectId)) ??
+            sectionId: args?.sectionId, subjectId: args?.subjectId)) ??
         [];
     isLoading.value = false;
     timeRemaining.value = (args?.section?.timeRequired ?? 0) * 60;
@@ -50,6 +54,27 @@ class QuizController extends GetxController {
     int minutes = (timeRemaining.value ?? 0) ~/ 60;
     int seconds = (timeRemaining.value ?? 0) % 60;
     return "${minutes <= 9 ? "0$minutes" : minutes}:${seconds <= 9 ? "0$seconds" : seconds}";
+  }
+
+  Future<void> submit() async {
+    isSubmitting.value = true;
+    final response = await getIt<QuizResultProvider>().postQuizResult(
+        QuizResult(
+            sectionId: args?.sectionId,
+            subjectId: args?.subjectId,
+            userId: PreferencesHelper.instance.mongoUserID,
+            numberOfQuestions: questions.length,
+            correctAttempts: questions
+                .where((p0) => p0.choosedOption == p0.correctOption)
+                .length,
+            questionsAttempted:
+                questions.where((p0) => p0.choosedOption != null).length));
+
+    if (response is Success<QuizResult?>) {
+      Get.offAllNamed(Routes.QUIZ_RESULT,
+          arguments: QuizResultArguments(questions: questions));
+    }
+    isSubmitting.value = false;
   }
 
   @override

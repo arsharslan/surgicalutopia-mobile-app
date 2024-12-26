@@ -7,6 +7,7 @@ class HomeController extends GetxController {
   RxBool isLoading = false.obs;
   RxList<Subject> filteredSubjects = RxList.empty();
   List<Subject> allSubjects = [];
+  RxInt currentIndex = 1.obs;
 
   @override
   void onInit() {

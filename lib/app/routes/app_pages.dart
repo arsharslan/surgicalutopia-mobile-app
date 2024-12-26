@@ -27,8 +27,9 @@ class AppPages {
   AppPages._();
 
   static String get INITIAL => FirebaseAuth.instance.currentUser == null
-      ? Routes.PHONE_NUMBER
-      : PreferencesHelper.instance.mongoUserID == null || PreferencesHelper.instance.mongoUserID?.isEmpty == true
+      ? Routes.EMAIL_LOGIN
+      : PreferencesHelper.instance.mongoUserID == null ||
+              PreferencesHelper.instance.mongoUserID?.isEmpty == true
           ? Routes.ONBOARDING
           : Routes.HOME;
 
@@ -36,7 +37,7 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () => const HomeView(),
-      binding: HomeBinding(),
+      bindings: [HomeBinding(), OnboardingBinding()],
     ),
     GetPage(
       name: _Paths.EMAIL_LOGIN,
