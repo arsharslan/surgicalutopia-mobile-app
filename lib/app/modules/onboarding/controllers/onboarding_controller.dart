@@ -83,8 +83,14 @@ class OnboardingController extends GetxController {
       await FirebaseAuth.instance.currentUser
           ?.updateDisplayName(firstName.text);
 
-      ApiResource<CustomUser?> customUser = await getIt<UserProvider>()
-          .createUser(CustomUser(
+      ApiResource<CustomUser?> customUser = user.value?.id == null
+          ? await getIt<UserProvider>().createUser(CustomUser(
+              firebaseId: FirebaseAuth.instance.currentUser?.uid,
+              profilePic: path,
+              firstName: firstName.text.nullIfEmpty(),
+              lastName: lastName.text.nullIfEmpty()))
+          : await getIt<UserProvider>().updateUser(CustomUser(
+              id: user.value?.id,
               firebaseId: FirebaseAuth.instance.currentUser?.uid,
               profilePic: path,
               firstName: firstName.text.nullIfEmpty(),

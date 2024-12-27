@@ -1,17 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:surgicalutopia/utils/shared_preferences.dart';
 
+import '../../utils/shared_preferences.dart';
 import '../modules/email_login/bindings/email_login_binding.dart';
 import '../modules/email_login/views/email_login_view.dart';
+import '../modules/email_signup/bindings/email_signup_binding.dart';
+import '../modules/email_signup/views/email_signup_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/leaderboard/bindings/leaderboard_binding.dart';
+import '../modules/leaderboard/views/leaderboard_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/phone_number/bindings/phone_number_binding.dart';
 import '../modules/phone_number/views/phone_number_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
 import '../modules/quiz/bindings/quiz_binding.dart';
 import '../modules/quiz/views/quiz_view.dart';
 import '../modules/quiz_result/bindings/quiz_result_binding.dart';
@@ -37,7 +43,7 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () => const HomeView(),
-      bindings: [HomeBinding(), OnboardingBinding()],
+      bindings: [HomeBinding(), LeaderboardBinding(), ProfileBinding()],
     ),
     GetPage(
       name: _Paths.EMAIL_LOGIN,
@@ -78,6 +84,21 @@ class AppPages {
       name: _Paths.ONBOARDING,
       page: () => const OnboardingView(),
       binding: OnboardingBinding(),
+    ),
+    GetPage(
+      name: _Paths.EMAIL_SIGNUP,
+      page: () => const EmailSignupView(),
+      binding: EmailSignupBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.LEADERBOARD,
+      page: () => const LeaderboardView(),
+      binding: LeaderboardBinding(),
     ),
   ];
 }

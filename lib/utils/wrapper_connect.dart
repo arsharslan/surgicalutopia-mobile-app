@@ -64,6 +64,60 @@ class WrapperConnect extends GetConnect {
     return response;
   }
 
+  Future<http.StreamedResponse> _putCore(
+      {required String url, required Map<String, dynamic> body}) async {
+    var headers = {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Authorization': 'Bearer ${await token}'
+    };
+    var request = http.Request('PUT', Uri.parse("$baseURL$url"));
+    request.body = json.encode(body);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    return response;
+  }
+
+  Future<ApiResource<T?>> wput<T>(
+    String? url,
+    dynamic body, {
+    String? contentType,
+    Map<String, String>? headers,
+    Map<String, dynamic>? query,
+    Decoder<T>? decoder,
+    Progress? uploadProgress,
+  }) async {
+    var response = await _putCore(
+      url: url ?? "",
+      body: body,
+
+      /* contentType: contentType ?? 'application/x-www-form-urlencoded; charset=UTF-8',
+      query: query,
+      decoder: decoder,
+      uploadProgress: uploadProgress, */
+    );
+    if ([401, 403].contains(response.statusCode)) {
+      response = await _putCore(
+        url: url ?? "",
+        body: body,
+
+        /* contentType: contentType ?? 'application/x-www-form-urlencoded; charset=UTF-8',
+      query: query,
+      decoder: decoder,
+      uploadProgress: uploadProgress, */
+      );
+      if ([401, 403].contains(response.statusCode)) {
+        signOut();
+      }
+    }
+    if (response.statusCode < 300) {
+      final body = await response.stream.bytesToString();
+      return Success<T?>(decoder?.call(jsonDecode(body)));
+    } else {
+      return Error<T?>(body);
+    }
+  }
+
   Future<ApiResource<T?>> wpost<T>(
     String? url,
     dynamic body, {

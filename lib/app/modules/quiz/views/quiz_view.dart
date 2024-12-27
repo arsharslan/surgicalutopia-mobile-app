@@ -417,17 +417,19 @@ class QuizView extends GetView<QuizController> {
                                                     color: Colors.white)),
                                       ),
                                       const SizedBox(width: 12),
-                                      Text(e.value ?? "",
-                                          style: Get.textTheme.bodyMedium?.copyWith(
-                                              color: controller
-                                                          .questions[controller
-                                                              .currentQuestionIndex
-                                                              .value]
-                                                          .choosedOption ==
-                                                      e.key
-                                                  ? Get.theme.colorScheme
-                                                      .secondary
-                                                  : Colors.black)),
+                                      Expanded(
+                                        child: Text(e.value ?? "",
+                                            style: Get.textTheme.bodyMedium?.copyWith(
+                                                color: controller
+                                                            .questions[controller
+                                                                .currentQuestionIndex
+                                                                .value]
+                                                            .choosedOption ==
+                                                        e.key
+                                                    ? Get.theme.colorScheme
+                                                        .secondary
+                                                    : Colors.black)),
+                                      ),
                                     ],
                                   ),
                                 ),

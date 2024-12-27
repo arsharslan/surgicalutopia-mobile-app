@@ -38,4 +38,18 @@ class UserProvider extends WrapperConnect {
         decoder: (data) => CustomUser.fromJson(data));
     return response;
   }
+
+  Future<ApiResource<CustomUser?>> updateUser(CustomUser customUser) async {
+    final response = await wput("user/${customUser.id}/", customUser.toJson(),
+        decoder: (data) => CustomUser.fromJson(data));
+    return response;
+  }
+
+  Future<List<CustomUser>?> getLeaderboard() async {
+    final response = await get<List<CustomUser>?>(
+        "leaderboard",
+        decoder: (data) =>
+            List<CustomUser>.from(data.map((e) => CustomUser.fromJson(e))));
+    return response.body;
+  }
 }

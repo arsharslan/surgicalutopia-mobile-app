@@ -6,6 +6,7 @@ class CustomUser {
   String? profilePic;
   String? phoneNumber;
   String? email;
+  int? points;
 
   CustomUser(
       {this.id,
@@ -14,7 +15,8 @@ class CustomUser {
       this.lastName,
       this.profilePic,
       this.phoneNumber,
-      this.email});
+      this.email,
+      this.points});
 
   factory CustomUser.fromJson(Map<String, dynamic> json) => CustomUser(
       id: json['_id'],
@@ -23,11 +25,12 @@ class CustomUser {
       lastName: json['lastName'],
       profilePic: json['profilePic'],
       phoneNumber: json['phoneNumber'],
-      email: json['email']);
+      email: json['email'],
+      points: json['points']);
 
   Map<String, String> toJson() {
     return {
-      if(firebaseId != null) "firebaseId": firebaseId!,
+      if (firebaseId != null) "firebaseId": firebaseId!,
       if (firstName != null) "firstName": firstName!,
       if (lastName != null) "lastName": lastName!,
       if (profilePic != null) "profilePic": profilePic!,

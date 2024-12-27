@@ -22,7 +22,7 @@ class OnboardingView extends GetView<OnboardingController> {
           backgroundColor: Get.theme.colorScheme.primary,
           elevation: 0,
           foregroundColor: Colors.white,
-          title: Text("Profile"),
+          title: Text("Onboarding"),
         ),
         body: Obx(() {
           print(
@@ -84,31 +84,8 @@ class OnboardingView extends GetView<OnboardingController> {
                                         ),
                                       );
                                     },
-                                    child: controller.user.value?.profilePic !=
-                                            null
-                                        ? CachedNetworkImage(
-                                            height: 128,
-                                            width: 128,
-                                            imageUrl:
-                                                "$firebaseURL${Uri.encodeComponent(controller.user.value?.profilePic ?? "")}?alt=media",
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    PhysicalModel(
-                                              color: Colors.grey,
-                                              shape: BoxShape.circle,
-                                              elevation: 4,
-                                              child: Container(
-                                                height: 128,
-                                                width: 128,
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: imageProvider)),
-                                              ),
-                                            ),
-                                          )
-                                        : PhysicalModel(
+                                    child: controller.pickedImage.value != null
+                                        ? PhysicalModel(
                                             color: Colors.grey,
                                             shape: BoxShape.circle,
                                             elevation: 4,
@@ -138,6 +115,28 @@ class OnboardingView extends GetView<OnboardingController> {
                                                       color:
                                                           Colors.grey.shade400)
                                                   : null,
+                                            ),
+                                          )
+                                        : CachedNetworkImage(
+                                            height: 128,
+                                            width: 128,
+                                            imageUrl:
+                                                "$firebaseURL${Uri.encodeComponent(controller.user.value?.profilePic ?? "")}?alt=media",
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    PhysicalModel(
+                                              color: Colors.grey,
+                                              shape: BoxShape.circle,
+                                              elevation: 4,
+                                              child: Container(
+                                                height: 128,
+                                                width: 128,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: imageProvider)),
+                                              ),
                                             ),
                                           ),
                                   ),

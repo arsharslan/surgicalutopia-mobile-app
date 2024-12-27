@@ -22,6 +22,7 @@ String baseURL =
     // "https://16.171.230.157:5001/api/";
     // "http://52.66.241.156:5001/api/";
     "https://15.207.21.79:5001/api/";
+    // "https://192.168.1.106:5001/api/";
 String firebaseURL =
     "https://firebasestorage.googleapis.com/v0/b/surgicalutopia-51861.appspot.com/o/";
 GetIt getIt = GetIt.instance;

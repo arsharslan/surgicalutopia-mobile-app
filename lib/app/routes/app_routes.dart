@@ -12,6 +12,9 @@ abstract class Routes {
   static const QUIZ = _Paths.QUIZ;
   static const QUIZ_RESULT = _Paths.QUIZ_RESULT;
   static const ONBOARDING = _Paths.ONBOARDING;
+  static const EMAIL_SIGNUP = _Paths.EMAIL_SIGNUP;
+  static const PROFILE = _Paths.PROFILE;
+  static const LEADERBOARD = _Paths.LEADERBOARD;
 }
 
 abstract class _Paths {
@@ -25,4 +28,7 @@ abstract class _Paths {
   static const QUIZ = '/quiz';
   static const QUIZ_RESULT = '/quiz-result';
   static const ONBOARDING = '/onboarding';
+  static const EMAIL_SIGNUP = '/email-signup';
+  static const PROFILE = '/profile';
+  static const LEADERBOARD = '/leaderboard';
 }

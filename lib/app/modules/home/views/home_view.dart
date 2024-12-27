@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:surgicalutopia/app/modules/leaderboard/views/leaderboard_view.dart';
 import 'package:surgicalutopia/app/modules/onboarding/views/onboarding_view.dart';
+import 'package:surgicalutopia/app/modules/profile/views/profile_view.dart';
 import 'package:surgicalutopia/app/modules/subject_detail/controllers/subject_detail_controller.dart';
 import 'package:surgicalutopia/app/routes/app_pages.dart';
 import 'package:surgicalutopia/widgets/app_bar/app_bar.dart';
@@ -19,7 +21,9 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        appBar: [1, ].contains(controller.currentIndex.value)
+        appBar: [
+          1,
+        ].contains(controller.currentIndex.value)
             ? AppBar(
                 backgroundColor: Get.theme.scaffoldBackgroundColor,
                 flexibleSpace: Stack(
@@ -309,15 +313,19 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ))
                       ])
-            : /* controller.currentIndex.value == 2
-                ? const SizedBox()
-                :  */const OnboardingView(),
+            : controller.currentIndex.value == 2
+                ? const LeaderboardView()
+                : const ProfileView(),
         bottomNavigationBar: CurvedNavigationBar(
           height: 48,
           backgroundColor: const Color.fromRGBO(167, 254, 165, 0.4),
           items: <Widget>[
             Icon(Icons.subject, size: 30),
-            // Icon(Icons.abc, size: 30),
+            SvgPicture.asset(
+              "assets/icons/crown.svg",
+              height: 24,
+              width: 24,
+            ),
             Icon(Icons.account_circle, size: 30),
           ],
           onTap: (index) {
